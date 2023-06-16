@@ -9,9 +9,6 @@ library("Matrix")
 library("parallel")
 library("expm")
 
-
-setwd("~/GitHub/InvarianceCode")
-
 source("helpers_paper.R")
 
 

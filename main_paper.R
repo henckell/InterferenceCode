@@ -1,6 +1,8 @@
 # Main: Simulation Study for the Paper
 # 27.06.2022
-setwd("~/Leonard/Papers/Projects/Interference/Rcode/ML-code")
+# setwd("~/Leonard/Papers/Projects/Interference/Rcode/ML-code")
+
+# install.packages(c("igraph","Matrix","parallel","expm"))
 
 library("igraph")
 library("Matrix")
@@ -8,7 +10,7 @@ library("parallel")
 library("expm")
 
 
-#setwd("~/GitHub/Confounded-GATE/SimulationStudy_Paper/Dec22")
+setwd("~/GitHub/InvarianceCode")
 
 source("helpers_paper.R")
 
@@ -102,7 +104,7 @@ growth.rate_list <- c(0,2/3,)
 
 for(i in 1:length(graph.type_list)){
   
-  graph.type <- graph.type_list[i]
+  typeofgraph <- graph.type_list[i]
   pai <- pai_list[i]
   eta <- eta_list[i]
   use.only.feat1 <- use.only.feat1_list[i]
@@ -110,8 +112,8 @@ for(i in 1:length(graph.type_list)){
   
   # nval <- 600
   model <- 2
-  n.cores.graph = 1 #12
-  n.cores.data = 1
+  n.cores.graph = 5 #12
+  n.cores.data = 5
   useseed <- 1
   
   eff <- "global" #"EATE"
@@ -119,7 +121,7 @@ for(i in 1:length(graph.type_list)){
   # 300  600 1200 2400 4800 9600
   #nvals <- 2^(0:5)*300 #2^(2:4)*100 #2^(2:8)*100
   
-  nrep_graph <- 50
+  nrep_graph <- 100
   nrep_data <- 100
   # typeofgraph <- "rand_npfix" #"rand_npfix_growing" #"WS_growing", "rand_npfix_growing", "family"
   error.type <- "runif"
@@ -128,7 +130,7 @@ for(i in 1:length(graph.type_list)){
   #B <- 1000 # nr of bootstrap repetitions
   # pai <- 0.7
   # eta <- 0.2
-  # growth.rate <- 2/3
+  growth.rate <- 2/3
   # use.only.feat1 <- TRUE
   
   
@@ -150,7 +152,7 @@ for(i in 1:length(graph.type_list)){
   delta_C1C2 = 2
   
   for(j in 1:length(nval_list)){
-    nval <- nval_list[i]
+    nval <- nval_list[j]
 
 if(typeofgraph == "rand_npfix_growing"){
   

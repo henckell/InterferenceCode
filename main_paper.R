@@ -2,7 +2,7 @@
 # 27.06.2022
 # setwd("~/Leonard/Papers/Projects/Interference/Rcode/ML-code")
 
-# install.packages(c("igraph","Matrix","parallel","expm"))
+#install.packages(c("igraph","Matrix","parallel","expm"))
 
 library("igraph")
 library("Matrix")
@@ -19,7 +19,6 @@ graph.type_list <- c("rand_pfix","rand_npfix","rand_npfix_growing","family","2dl
 pai_list <- c(0.7,0.7,0.7,1,0.5)
 eta_list<- c(0.2,0.2,0.2,0,0.1)
 use.only.feat1_list <- c(1,1,1,1,0)
-growth.rate_list <- c(0,2/3,)
 
 # nval <- 600
 # model <- 2

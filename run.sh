@@ -39,7 +39,7 @@ exec 2> sims.log
 # This is where the work is done
 # Make sure that this script is not bigger than 64kb ~ 150 lines,
 # otherwise put in separate script and execute from here
-Rscript main/main_paper.R
+Rscript main_paper.R
 
 #qsub -W group_list=ku_00179 -A ku_00179 -l nodes=1:ppn=40,mem=16gb,walltime=3600 main/run_job.sh
 

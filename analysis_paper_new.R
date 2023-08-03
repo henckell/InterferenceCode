@@ -1,46 +1,10 @@
 # Analysis: Simulation Study for the Paper
-# 27.06.2022
+# 19.06.2023
 
 ################################### simulate tau
 nvals <- c(300, 600, 1200,2400, 4800)#,9600)
 
-setwd("~/GitHub/Confounded-GATE/SimulationStudy_Paper/Dec22/2022-12-17_model2_growth.rate.WS0.25use.only.feat1FALSEWS_growing_pi0.7_eta0.2")
-
-tau.est <- matrix(nrow=100,ncol=length(nvals))
-tau.theor <- matrix(nrow=100,ncol=length(nvals))
-
-
-for(i in 1:length(nvals)){
-  
-  nval <- nvals[i]
-  load(paste0("WS_growing_pai07_eta02_model2_nval",nval,".Rda"))
-  
-  Results <- data.frame(do.call(rbind, Results))
-  
-  tau.est[,i] <- unlist(Results$tau.est)
-  tau.theor[,i] <- unlist(Results$tau.theor)
-  
- 
-}
-
-tau.est <- data.frame(tau.est)
-colnames(tau.est) <- nvals
-
-tau.theor <- colMeans(data.frame(tau.theor))
-names(tau.theor) <- nvals
-
-boxplot(tau.est ,ylim=c(1.6,1.8), main="causal effect with pi=0.7, eta=0.2",
-        xlab="n", ylab="tau")
-points(tau.theor, col="red", pch=16)
-
-legend("top", c("empirical", "theoretical"), 
-       pch = c(3),
-       col = c("black","red"), cex = 1.1, lwd=2)
-
-
-
-
-
+setwd("~/GitHub/InvarianceCode/")
 
 
 ################################## estimation
@@ -48,26 +12,22 @@ legend("top", c("empirical", "theoretical"),
 library("latex2exp")
 library(scales)
 
-
-
-
-
 typeofgraph <- "2dlatt" #"rand_npfix" #"family","rand_npfix" #"WS_growing", "rand_npfix_growing", "family"
-growth.rate <- 2/3#7/8#7/8#9/10#1/2#7/8 #3/4
+growth.rate <- 1/4#7/8#7/8#9/10#1/2#7/8 #3/4
 
 eff<- "global"#"EATE"
 
 
 nvals <- c(300, 600, 1200,2400, 4800)
-dateused <- "2022-12-29"
+dateused <- "2023-06-17"
 
 
-use.only.feat1 <- TRUE
+use.only.feat1 <- 0
 #confint.constr <-   "boot" #"normal" 
 model <- 2
-pai <- 0.7
-eta <- 0.2
-dateused <- "2022-12-29" 
+pai <- 0.5
+eta <- 0.1
+dateused <- "2023-06-17"
 const <-10#
 
 
@@ -81,11 +41,11 @@ generate_plot <- function(typeofgraph,
   
 
   if(typeofgraph=="WS_growing"){
-    foldername <- paste0(dateused,"_model",model,"_growth.rate.WS",round(growth.rate.WS,3),
+    foldername <- paste0(dateused,"global_model",model,"_growth.rate.WS",round(growth.rate.WS,3),
                          "use.only.feat1",use.only.feat1,"WS_growing_pi",pai,"_eta",eta)
     
   }else{
-    foldername <- paste0(dateused,"_model",model,"_",typeofgraph,"_growth.rate",round(growth.rate,3),
+    foldername <- paste0(dateused,"global_model",model,typeofgraph,"_growth.rate.WS",round(growth.rate,3),
                          "use.only.feat1",use.only.feat1,typeofgraph,"_pi",pai,"_eta",eta)
     
   }
@@ -124,7 +84,7 @@ generate_plot <- function(typeofgraph,
           filename <- paste0(eff,"estimation_",typeofgraph,"_pi",ifelse(pai==1,1,10)*pai,"_eta",10*eta,"_model",model,"_nval",nval,".Rda")
           
         }else{
-          filename <- paste0("estimation_",typeofgraph,"_pi0",ifelse(pai==1,1,10)*pai,"_eta0",10*eta,"_model",model,"_nval",nval,".Rda")
+          filename <- paste0("1estimation_",typeofgraph,"_pi0",ifelse(pai==1,1,10)*pai,"_eta0",10*eta,"_model",model,"_nval",nval,".Rda")
           
         }
       load(filename)
@@ -387,173 +347,8 @@ generate_plot <- function(typeofgraph,
     
     var.var.est_ols4[i] <-  var(1/nvals[i]*Res[[i]][which(names(unlist(Res[[i]]))=="var_OLS4.est")])
     
-    
-    #pval.normal_ols4[i] <- shapiro.test(sqrt(nvals[i])*(est-tau[length(nvals)]) )$p.value
     rm(est)
-    
-    # est <- as.numeric(unname(Res[[i]][which(names(unlist(Res[[i]]))=="est_OLS4.simple")]))
-    # bias_ols4.simple[i] <- mean(est, na.rm=TRUE)- tau[length(nvals)]
-    # var_ols4.simple[i] <- var(est, na.rm=TRUE)
-    
-    
-    # if(confint.constr=="normal"){
-    #   var_ols4.est[i] <- mean(as.numeric(unname(Res[[i]][which(names(unlist(Res[[i]]))=="var_OLS4.est")])))
-    #   # var_ols4.est.simple[i] <- mean(as.numeric(unname(Res[[i]][which(names(unlist(Res[[i]]))=="var_OLS4.est.simple")])))
-    #   #var_IV2.est[i] <- mean(as.numeric(unname(Res[[i]][which(names(unlist(Res[[i]]))=="var_IV2.est")])))
-    #   var_iv2.est.freedman[i] <- mean(as.numeric(unname(Res[[i]][which(names(unlist(Res[[i]]))=="var_IV2.est.freedman")])))
-    #   # var_iv3.est.freedman[i] <- mean(as.numeric(unname(Res[[i]][which(names(unlist(Res[[i]]))=="var_IV3.est.freedman")])))
-    #   
-    #   
-    # }else if (confint.constr=="boot"){
-    #   var_ols4.est[i] <- mean(unlist(boot_ols4.est[[i]][2,]))
-    #   # var_ols4.est.simple[i] <- mean(as.numeric(unname(Res[[i]][which(names(unlist(Res[[i]]))=="var_OLS4.est.simple")])))
-    #   #var_IV2.est[i] <- mean(as.numeric(unname(Res[[i]][which(names(unlist(Res[[i]]))=="var_IV2.est")])))
-    #   var_iv2.est.freedman[i] <- mean(as.numeric(unname(Res[[i]][which(names(unlist(Res[[i]]))=="var_IV2.est.freedman")])))
-    #   # var_iv3.est.freedman[i] <- mean(as.numeric(unname(Res[[i]][which(names(unlist(Res[[i]]))=="var_IV3.est.freedman")])))
-    #   
-    # 
-    # }
-    
-   ####### coverage
-    
-    # # OLS1
-    # lower.CI <- as.numeric(unname(Res[[i]][which(names(unlist(Res[[i]]))=="est_OLS1")]))- 
-    #   qnorm(1-0.05/2)*sqrt(var_ols1[i])
-    # 
-    # upper.CI <- as.numeric(unname(Res[[i]][which(names(unlist(Res[[i]]))=="est_OLS1")]))+
-    #   qnorm(1-0.05/2)*sqrt(var_ols1[i])
-    # 
-    # coverage_ols1[i]<- mean(sapply(1:length(lower.CI), function(k){
-    #   ifelse(( (tau[length(nvals)]>= lower.CI[k]) & (tau[length(nvals)]<= upper.CI[k]) ), 1,0)
-    # }))
-    # 
-    # rm(lower.CI)
-    # rm(upper.CI)
-    # 
-    # # OLS2
-    # lower.CI <- as.numeric(unname(Res[[i]][which(names(unlist(Res[[i]]))=="est_OLS2")]))- 
-    #   qnorm(1-0.05/2)*sqrt(var_ols2[i])
-    # 
-    # upper.CI <- as.numeric(unname(Res[[i]][which(names(unlist(Res[[i]]))=="est_OLS2")]))+
-    #   qnorm(1-0.05/2)*sqrt(var_ols2[i])
-    # 
-    # coverage_ols2[i]<- mean(sapply(1:length(lower.CI), function(k){
-    #   ifelse(( (tau[length(nvals)]>= lower.CI[k]) & (tau[length(nvals)]<= upper.CI[k])), 1,0)
-    # }))
-    # 
-    # rm(lower.CI)
-    # rm(upper.CI)
-    # 
-    # # OLS3
-    # lower.CI <- as.numeric(unname(Res[[i]][which(names(unlist(Res[[i]]))=="est_OLS3")]))- 
-    #   qnorm(1-0.05/2)*sqrt(var_ols3[i])
-    # 
-    # upper.CI <- as.numeric(unname(Res[[i]][which(names(unlist(Res[[i]]))=="est_OLS3")]))+
-    #   qnorm(1-0.05/2)*sqrt(var_ols3[i])
-    # 
-    # coverage_ols3[i]<- mean(sapply(1:length(lower.CI), function(k){
-    #   ifelse((tau[length(nvals)]>= lower.CI[k] & tau[length(nvals)]<= upper.CI[k]), 1,0)
-    # }))
-    # 
-    # rm(lower.CI)
-    # rm(upper.CI)
-    # 
-    # # OLS4
-    # 
-    # lower.CI <- as.numeric(unname(Res[[i]][which(names(unlist(Res[[i]]))=="est_OLS4")]))- 
-    #   qnorm(1-0.05/2)*sqrt(var_ols4[i])
-    # 
-    # upper.CI <- as.numeric(unname(Res[[i]][which(names(unlist(Res[[i]]))=="est_OLS4")]))+
-    #   qnorm(1-0.05/2)*sqrt(var_ols4[i])
-    # 
-    # coverage_ols4[i]<- mean(sapply(1:length(lower.CI), function(k){
-    #   ifelse((tau[length(nvals)]>= lower.CI[k] & tau[length(nvals)]<= upper.CI[k]), 1,0)
-    # }))
-    # 
-    # rm(lower.CI)
-    # rm(upper.CI)
-    # 
-    # if(confint.constr =="normal"){
-    #   lower.CI <- as.numeric(unname(Res[[i]][which(names(unlist(Res[[i]]))=="est_OLS4")]))- 
-    #     qnorm(1-0.05/2)*sqrt(as.numeric(boot_ols4.est[[i]][2,]))
-    #   
-    #   upper.CI <- as.numeric(unname(Res[[i]][which(names(unlist(Res[[i]]))=="est_OLS4")]))+
-    #     qnorm(1-0.05/2)*sqrt(as.numeric(boot_ols4.est[[i]][2,]))
-    #   
-    #   coverage_ols4[i]<- mean(sapply(1:length(lower.CI), function(k){
-    #     ifelse((tau[length(nvals)]>= lower.CI[k] & tau[length(nvals)]<= upper.CI[k]), 1,0)
-    #   })) 
-    # }else if (confint.constr=="boot"){
-    #   
-    #   lower.CI <- 2*as.numeric(unname(Res[[i]][which(names(unlist(Res[[i]]))=="est_OLS4")]))- 
-    #     do.call(rbind,boot_ols4.est[[i]][1,])[,1]
-    #   
-    #   upper.CI <- 2*as.numeric(unname(Res[[i]][which(names(unlist(Res[[i]]))=="est_OLS4")]))- 
-    #     do.call(rbind,boot_ols4.est[[i]][1,])[,2]
-    #   
-    #   coverage_ols4[i]<- mean(sapply(1:length(lower.CI), function(k){
-    #     ifelse((tau[length(nvals)]>= lower.CI[k] & tau[length(nvals)]<= upper.CI[k]), 1,0)
-    #   }))
-    # }
-    # 
-    # 
-    # 
-    # rm(lower.CI)
-    # rm(upper.CI)
-    
-    # OLS4.simple
-    # lower.CI <- as.numeric(unname(Res[[i]][which(names(unlist(Res[[i]]))=="est_OLS4.simple")]))- 
-    #   qnorm(1-0.05/2)*sqrt(as.numeric(unname(Res[[i]][which(names(unlist(Res[[i]]))=="var_OLS4.est.simple")])))
-    # 
-    # upper.CI <- as.numeric(unname(Res[[i]][which(names(unlist(Res[[i]]))=="est_OLS4.simple")]))+
-    #   qnorm(1-0.05/2)*sqrt(as.numeric(unname(Res[[i]][which(names(unlist(Res[[i]]))=="var_OLS4.est.simple")])))
-    # 
-    # coverage_ols4.simple[i]<- mean(sapply(1:length(lower.CI), function(k){
-    #   ifelse((tau[length(nvals)]>= lower.CI[k] & tau[length(nvals)]<= upper.CI[k]), 1,0)
-    # }))
-    
-    # IV1
-    # lower.CI <- as.numeric(unname(Res[[i]][which(names(unlist(Res[[i]]))=="est_IV1")]))- 
-    #   qnorm(1-0.05/2)*sqrt(var_iv1[i])
-    # 
-    # upper.CI <- as.numeric(unname(Res[[i]][which(names(unlist(Res[[i]]))=="est_IV1")]))+
-    #   qnorm(1-0.05/2)*sqrt(var_iv1[i])
-    # 
-    # coverage_iv1[i]<- mean(sapply(1:length(lower.CI), function(k){
-    #   ifelse((tau[length(nvals)]>= lower.CI[k] & tau[length(nvals)]<= upper.CI[k]), 1,0)
-    # }))
-    # 
-    # rm(lower.CI)
-    # rm(upper.CI)
-    # 
-    # IV2
-    # lower.CI <- as.numeric(unname(Res[[i]][which(names(unlist(Res[[i]]))=="est_IV2")]))- 
-    #   qnorm(1-0.05/2)*sqrt(as.numeric(unname(Res[[i]][which(names(unlist(Res[[i]]))=="var_IV2.est.freedman")])))
-    # 
-    # upper.CI <- as.numeric(unname(Res[[i]][which(names(unlist(Res[[i]]))=="est_IV2")]))+
-    #   qnorm(1-0.05/2)*sqrt(as.numeric(unname(Res[[i]][which(names(unlist(Res[[i]]))=="var_IV2.est.freedman")])))
-    # 
-    # coverage_iv2[i]<- mean(sapply(1:length(lower.CI), function(k){
-    #   ifelse((tau[length(nvals)]>= lower.CI[k] & tau[length(nvals)]<= upper.CI[k]), 1,0)
-    # }))
-    # 
-    # rm(lower.CI)
-    # rm(upper.CI)
-    # 
-    # IV3
-    # lower.CI <- as.numeric(unname(Res[[i]][which(names(unlist(Res[[i]]))=="est_IV3")]))- 
-    #   qnorm(1-0.05/2)*sqrt(as.numeric(unname(Res[[i]][which(names(unlist(Res[[i]]))=="var_IV3.est.freedman")])))
-    # 
-    # upper.CI <- as.numeric(unname(Res[[i]][which(names(unlist(Res[[i]]))=="est_IV3")]))+
-    #   qnorm(1-0.05/2)*sqrt(as.numeric(unname(Res[[i]][which(names(unlist(Res[[i]]))=="var_IV3.est.freedman")])))
-    # 
-    # coverage_iv3[i]<- mean(sapply(1:length(lower.CI), function(k){
-    #   ifelse((tau[length(nvals)]>= lower.CI[k] & tau[length(nvals)]<= upper.CI[k]), 1,0)
-    # }))
-    # 
-  }
   
-  ######################## Plotting: bias, RMSE and Var ########################
   
 
 
@@ -616,10 +411,10 @@ generate_plot <- function(typeofgraph,
   #      col= "snow4",lwd=2, ylab="", cex.lab = 1.2, cex.main=1.2, frame.plot = FALSE, axes=F)
 
   
-  plot(rmse_ols1[1,]~nvals, ylim=ylim.rmse, type = "l", main =paste0("RMSE"), xlab=TeX("$N$"),
+  plot(rmse_ols1[1,]~nvals, ylim=c(0,5), type = "l", main =paste0("RMSE"), xlab=TeX("$N$"),
        col= "tomato",lwd=2, ylab="", cex.lab = 1.2, cex.main=1.2, frame.plot = FALSE, axes=F)
   
-  box(bty="l")
+    box(bty="l")
   # axis(1, at=nvals,las=2, labels=nvals, 
   #      las = 2, cex.lab = 1.2,cex.axis = 1.25)
   # 
@@ -648,7 +443,7 @@ generate_plot <- function(typeofgraph,
   #      col= "snow4",lwd=2, ylab="",xaxt="n",cex.lab = 1.2, cex.main=1.2, frame.plot = FALSE, axes=F)
   
   plot(bias_ols1[1,]~nvals,
-       ylim=ylim.bias, type = "l", main =paste0("Bias"), xlab=TeX("$N$"),
+       ylim=c(0,5), type = "l", main =paste0("Bias"), xlab=TeX("$N$"),
        col= "tomato",lwd=2, ylab="",xaxt="n",cex.lab = 1.2, cex.main=1.2, frame.plot = FALSE, axes=F)
   
   box(bty="l")
@@ -677,7 +472,7 @@ generate_plot <- function(typeofgraph,
   #      col= "snow4",lwd=2, ylab="", cex.lab = 1.2, cex.main=1.2, frame.plot = FALSE, axes=F)
   
   plot(log(var_ols1[1,])~log(nvals),
-       ylim=ylim.var, type = "l", main =paste0("log(Variance)"), xlab=TeX("$log(N)$"),
+       ylim=c(0,5), type = "l", main =paste0("log(Variance)"), xlab=TeX("$log(N)$"),
        col= "tomato",lwd=2, ylab="", cex.lab = 1.2, cex.main=1.2, frame.plot = FALSE, axes=F)
   
   box(bty="l")

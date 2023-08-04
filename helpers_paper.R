@@ -203,7 +203,7 @@ simulation <- function(beta,
         A <- A_random_graph(nval, const/nval)
         A <- Matrix(A, sparse = T)
       } else if (typeofgraph=="rand_npfix_growing"){
-        A <- A_random_graph(nval, const*nval^(-growth.rate))
+        A <- A_random_graph(nval, nval^(-growth.rate))
         A <- Matrix(A, sparse = T)
       } else if (typeofgraph=="WS"){
         mean.degree <- const

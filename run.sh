@@ -41,4 +41,4 @@ exec 2> sims.log
 # otherwise put in separate script and execute from here
 Rscript main_paper.R
 
-#qsub -W group_list=ku_00126 -A ku_00126 -l nodes=2:ppn=40:thinnode,mem=150gb,walltime=3600 main/run_job.sh
+#qsub -W group_list=ku_00126 -A ku_00126 -l nodes=2:ppn=40:thinnode,mem=150gb,walltime=100000 run.sh

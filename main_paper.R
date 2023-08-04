@@ -14,7 +14,7 @@ source("DataGenerationFunction.R")
 
 
 nval_list <- c(300,600,1200,2400,4800)
-graph.type_list <- c("rand_pfix","rand_npfix","rand_npfix_growing","family","2dlatt")
+graph.type_list <-  c("rand_pfix","rand_npfix","rand_npfix_growing","family","2dlatt")
 
 
 pai_list <- c(0.7,0.7,0.7,1,0.5)
@@ -29,11 +29,11 @@ for(i in 1:length(graph.type_list)){
   features <- features_list[[i]]
 
   # nval <- 600
-  n.cores.graph = 5 #12
-  n.cores.data = 5
+  n.cores.graph = 1 #12
+  n.cores.data = 1
   useseed <- 1
   
-  nrep_graph <- 50
+  nrep_graph <- 1
   nrep_data <- 100
   error.type_C <- "rnorm"
   error.type_Y <- "runif"  #, "rnorm", "rt", "runif", "chisq"
@@ -54,7 +54,7 @@ for(i in 1:length(graph.type_list)){
   delta_C <- c(-2,0,0.5)
   gamma_C <- c(1.5,0,0)
   sigma_C <- c(1,1,1)
-  eta_C <-  c(0,1,2.3)
+  eta_C <-  c(0,1,5)
   
   beta_0 = c(2, 1, 0.5)
   beta_1 = c(2.4, 2.1, 1.0)

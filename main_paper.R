@@ -29,11 +29,11 @@ for(i in 1:length(graph.type_list)){
   features <- features_list[[i]]
 
   # nval <- 600
-  n.cores.graph = 1 #12
-  n.cores.data = 1
+  n.cores.graph = 5 #12
+  n.cores.data = 5
   useseed <- 1
   
-  nrep_graph <- 1
+  nrep_graph <- 50
   nrep_data <- 100
   error.type_C <- "rnorm"
   error.type_Y <- "runif"  #, "rnorm", "rt", "runif", "chisq"

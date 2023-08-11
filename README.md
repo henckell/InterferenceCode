@@ -4,12 +4,11 @@ R-code for "A Graphical Approach to Treatment Effect Estimation with Observation
 
 ## Main simulation
 
--
+- Simulation investigating the empirical RMSE, bias and variance of the proposed estimator in a variety of settings.
 
 ## Maximal degree simulation
 
-- 
-
+- Simulation investigating the maximal degree of the interference graph for the feature fraction of treated parents and different Erdos-Reyni graph regimes.
 
 ## Masking policy in Switzerland analysis
 

@@ -9,9 +9,11 @@ nvals <- c(300, 600, 1200,2400, 4800)#,9600)
 
 setwd("~/GitHub/InvarianceCode/")
 
-typeofgraph <-  "rand_pfix"
+typeofgraph <-  "2dlatt"
 
 # c("rand_pfix","rand_npfix","rand_npfix_growing","family","2dlatt")
+
+
 
 filename.save <- paste0("plot_",typeofgraph)
 
@@ -88,6 +90,9 @@ pdf(file = paste0("ecdf",typeofgraph , ".pdf"), width = 10, height = 4.5)
 par(mfrow=c(1,2))
 
 
+if(typeofgraph=="2dlatt"){
+  nvals <- c(289, 576, 1225, 2401, 4761)
+}
 
 g_full <- lapply(seq_len(ncol(pval.normal_ols4)), FUN = function(i) {
   

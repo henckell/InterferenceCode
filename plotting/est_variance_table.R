@@ -1,26 +1,29 @@
 library(latex2exp)
 library(ggplot2)
 library(ggpubr)
+library(xtable)
 
 setwd("~/GitHub/InvarianceCode")
 
-typeofgraph <- "rand_npfix" #  "rand_pfix","rand_npfix","rand_npfix_growing","family","2dlatt"
 
-nvals <- c(300, 600, 1200,2400,4800)
+typeofgraphs <-  c("rand_pfix","rand_npfix","rand_npfix_growing","family","2dlatt")
 
+nvals <- c(300,600,1200,2400,4800)
 
-filename.save <- paste0("plot_",typeofgraph)
+rmse_var.est <- matrix(numeric(25),ncol=5)
 
 tau <- list()
 Res <- list()
 
-
+for(j in 1:length(typeofgraphs)){
+  
+  typeofgraph <- typeofgraphs[j]
 
 for(i in 1:length(nvals)){
   
   nval <- nvals[i]
   
-  filename <- paste0("model_", typeofgraph,"/estimation_",typeofgraph,"_nval",nval,".Rda")
+  filename <- paste0("results_data/model_", typeofgraph,"/estimation_",typeofgraph,"_nval",nval,".Rda")
   
   
   load(filename)
@@ -36,6 +39,10 @@ for(i in 1:length(nvals)){
   
   rm(Results)
   print(paste0("nval: ",nvals[i]))
+}
+
+if(typeofgraph=="2dlatt"){
+  nvals <- c(289, 576, 1225, 2401, 4761)
 }
 
 rmse_ols1 <- matrix(nrow=1, ncol=length(nvals))
@@ -100,36 +107,13 @@ for (i in 1:length(nvals)){
   var.var.est_ols4[i] <-  var(1/nvals[i]*Res[[i]][which(names(unlist(Res[[i]]))=="var_OLS4.est")])
   rm(est)}
 
-pdf(file = paste0(filename.save , ".pdf"), width = 11, height = 4.5)
-
-estimator <- as.factor(c(rep(1,length(nvals)),rep(2,length(nvals)),rep(3,length(nvals)),rep(4,length(nvals))))
-
-data_rmse <- data.frame(RMSE=c(rmse_ols1,rmse_ols2,rmse_ols3,rmse_ols4),
-                   estimator=estimator,n=rep(nvals,4))
-data_bias <- data.frame(Bias=c(bias_ols1,bias_ols2,bias_ols3,bias_ols4),
-                        estimator=estimator,n=rep(nvals,4))
-data_var <- data.frame(Variance=c(var_ols1,var_ols2,var_ols3,var_ols4,var.est_ols4),
-                        estimator=as.factor(c(estimator,rep(5,length(nvals)))),n=rep(nvals,5))
-
-g_rmse <- ggplot(data = data_rmse, aes(x = n, y = RMSE,group=estimator)) +  ylim(0, 1) + xlim(-500,5500) +
-  geom_point(aes(shape = estimator,col=estimator)) + theme(legend.position = "none") + geom_line(aes(linetype=estimator,col=estimator))
-
-g_bias <- ggplot(data = data_bias, aes(x = n, y = Bias)) +  ylim(-1, 1) + xlim(-500,5500) + 
-  geom_point(aes(shape = estimator,col=estimator)) + theme(legend.position = "none") + geom_line(aes(linetype=estimator,col=estimator))
-
-g_var <- ggplot(data = data_var, aes(x = log(n), y = log(Variance))) +  ylim(-8, -1) + xlim(5.2,8.8) +
-  geom_point(aes(shape = estimator,col=estimator)) + theme(legend.position = "none") + geom_line(aes(linetype=estimator,col=estimator))
 
 
+for(i in 1:length(nvals)){
+  
+  rmse_var.est[i,j] <- mean((Res[[i]][which(names(unlist(Res[[i]]))=="var_OLS4.est")]-nvals[i]*var_ols4[i])^2)
+  
+}
+}
 
-g <- ggarrange(g_rmse,g_bias,g_var,ncol=3,common.legend = TRUE, legend="bottom")
-
-annotate_figure(g, top = text_grob("Erd\U0151s-R\U00E9nyi networks I(N,10/N)",
-                                      color = "black", face = "bold", size = 14))
- g
-  dev.off()
-
-
-
-
-
+xtable(rmse_var.est[,c(2,4,5)])

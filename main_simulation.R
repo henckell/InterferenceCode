@@ -6,11 +6,11 @@ library("Matrix")
 library("parallel")
 library("expm")
 
-source("helpers_paper.R")
-source("helpers_graph.R")
-source("helpers_features.R")
-source("helpers_general.R")
-source("DataGenerationFunction.R")
+source("helpers/helpers_paper.R")
+source("helpers/helpers_graph.R")
+source("helpers/helpers_features.R")
+source("helpers/helpers_main.R")
+source("helpers/helpers_datageneration.R")
 
 
 nval_list <- c(300,600,1200,2400,4800)
@@ -64,7 +64,7 @@ for(i in 1:length(graph.type_list)){
   for(j in 1:length(nval_list)){
     nval <- nval_list[j]
   
-  foldername <- paste0("model_", typeofgraph) 
+  foldername <- paste0("results_data/model_", typeofgraph) 
 
 if (file.exists(foldername)) {
   setwd(foldername)

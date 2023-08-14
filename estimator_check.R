@@ -12,6 +12,7 @@ source("helpers/helpers_graph.R")
 source("helpers/helpers_features.R")
 source("helpers/helpers_main.R")
 source("helpers/helpers_datageneration.R")
+source("helpers/helpers_estimator.R")
 
 
 typeofgraph <- "rand_npfix"

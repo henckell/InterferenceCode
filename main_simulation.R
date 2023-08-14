@@ -1,12 +1,12 @@
 # Main: Simulation Study for the Paper
-# setwd("~/GitHub/InvarianceCode")
+setwd("~/GitHub/InvarianceCode")
 
 library("igraph")
 library("Matrix")
 library("parallel")
 library("expm")
 
-source("helpers/helpers_paper.R")
+source("helpers/helpers_general.R")
 source("helpers/helpers_graph.R")
 source("helpers/helpers_features.R")
 source("helpers/helpers_main.R")
@@ -46,8 +46,8 @@ for(i in 1:length(graph.type_list)){
   sigma_Y <- 1
   const <- 10
   growth.rate.WS <- 1/4
-  beta_0 = c(2, 1, 0.5)
-  beta_1 = c(2.4, 2.1, 1.0)
+  # beta_0 = c(2, 1, 0.5)
+  # beta_1 = c(2.4, 2.1, 1.0)
   B_C <- t(matrix(c(0,0,0,
                   2,0,0,
                   0,0,0),nrow=3))

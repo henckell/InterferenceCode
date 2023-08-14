@@ -6,7 +6,7 @@ setwd("~/GitHub/InvarianceCode")
 
 
 
-typeofgraph <-  "2dlatt"
+typeofgraph <-  "rand_npfix"
   
   # c("rand_pfix","rand_npfix","rand_npfix_growing","family","2dlatt")
 

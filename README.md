@@ -10,6 +10,10 @@ R-code for "A Graphical Approach to Treatment Effect Estimation with Observation
 
 - Simulation investigating the maximal degree of the interference graph for the feature fraction of treated parents and different Erdos-Reyni graph regimes.
 
+## Estimator
+
+- Implimentation of our proposed estimator.
+
 ## Masking policy in Switzerland analysis
 
 - Unfortunately we cannot yet make our data and analysis public. We add both to this repository as soon as possible.

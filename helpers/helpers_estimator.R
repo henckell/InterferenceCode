@@ -2,6 +2,13 @@ omega_comp <- function(pai, eta, feat_functions,A,B){
   
   n <- nrow(A)
   
+  if(length(feat_functions)==0){
+    
+    E_pai <- 1
+    
+    E_eta <- 1
+    
+  } else{
   E_pai <- E_eta <- matrix(ncol=length(feat_functions))
   
   for(i in 1:B){
@@ -16,7 +23,7 @@ omega_comp <- function(pai, eta, feat_functions,A,B){
   
   E_pai <- c(1, colMeans(as.matrix(E_pai[-1,])))
   
-  E_eta <- c(1, colMeans(as.matrix(E_eta[-1,])))
+  E_eta <- c(1, colMeans(as.matrix(E_eta[-1,])))}
   
   
   omega_1 <- pai*(E_pai) - eta*E_eta

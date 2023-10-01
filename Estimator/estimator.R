@@ -34,11 +34,11 @@ estimator <- function(pai, eta, W,Y,C,adj,feat_functions,A,B=100,factor=c()){
   if(length(factor)!=0){
   for(i in 1:length(factor)){
     df[,factor[i]] <- as.factor(df[,factor[i]])
-  }}
-  
-  df <- dummy_cols(df)
-  
-  df <- df[,!names(df)%in% factor]
+  }
+    df <- dummy_cols(df,remove_first_dummy=TRUE)
+    
+    df <- df[,!names(df)%in% factor]  
+  }
   
   alpha_full <- lm(Y~.-1.,data=df)$coef
   alpha <- alpha_full[1:(2+2*length(feat_functions))]
@@ -48,13 +48,12 @@ estimator <- function(pai, eta, W,Y,C,adj,feat_functions,A,B=100,factor=c()){
   estimate<- omega$omega_1%*%beta$beta_hat_1 +
     omega$omega_0%*%beta$beta_hat_0
   
-  var_estimate <- sandwich.var.est(Z=df, Y=Y, alpha.hat=alpha_full, 
+  var_estimate <- sandwich.var.est(Z=as.matrix(df[,-1]), Y=Y, alpha.hat=alpha_full, 
                                    omega_0=omega$omega_0, 
                                    omega_1=omega$omega_1, adj=adj)
   
   return(list(hat_tau=estimate,hat_var_tau=var_estimate))
 }
-s
 
 
 

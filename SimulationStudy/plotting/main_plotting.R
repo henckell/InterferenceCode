@@ -2,11 +2,11 @@ library(latex2exp)
 library(ggplot2)
 library(ggpubr)
 
-setwd("~/GitHub/InvarianceCode")
+setwd("~/GitHub/InvarianceCode/SimulationStudy/")
 
 
 
-typeofgraph <-  "rand_npfix"
+typeofgraph <-  "rand_pfix"
   
   # c("rand_pfix","rand_npfix","rand_npfix_growing","family","2dlatt")
 
@@ -129,11 +129,11 @@ data_var <- data.frame(Variance=c(var_ols1,var_ols2,var_ols3,var_ols4),
                         Estimator=Estimator,
                        N=rep(nvals,4))
 
-g_rmse <- ggplot(data = data_rmse, aes(x = N, y = RMSE,group=Estimator)) +  ylim(0, 2) + xlim(-500,5500) +
+g_rmse <- ggplot(data = data_rmse, aes(x = N, y = RMSE,group=Estimator)) +  ylim(0, 1.25) + xlim(-500,5500) +
   geom_point(aes(shape = Estimator)) + theme(legend.position = "none",legend.key.size = unit(1, 'cm')) + 
   geom_line(aes(linetype=Estimator))
 
-g_bias <- ggplot(data = data_bias, aes(x = N, y = Bias)) +  ylim(-2, 2) + xlim(-500,5500) + 
+g_bias <- ggplot(data = data_bias, aes(x = N, y = Bias)) +  ylim(-1, 1) + xlim(-500,5500) + 
   geom_point(aes(shape = Estimator)) + theme(legend.position = "none",legend.key.size = unit(1, 'cm')) + 
   geom_line(aes(linetype=Estimator))
 

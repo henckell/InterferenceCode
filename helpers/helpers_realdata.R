@@ -25,7 +25,7 @@ sandwich.var.est <- function(Z, Y, alpha.hat, omega_0, omega_1, adj){
   
   var.coef.mat <- c(omega_0+omega_1, 
                     omega_1, 
-                    rep(0, length(adj)))
+                    rep(0, ncol(Z)-length(omega_0)-length(omega_1)))
   
   var.est.tau <- as.numeric(t(var.coef.mat)%*%alpha.hat.var%*%var.coef.mat)
   

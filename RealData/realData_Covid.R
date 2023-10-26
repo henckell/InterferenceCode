@@ -1,7 +1,7 @@
 
 library(dplyr)
 library(Matrix)
-library(ggplot2)
+library(ggplot2)1
 library(fastDummies)
 
 # Comments: 
@@ -22,8 +22,7 @@ source("~/GitHub/InvarianceCode/helpers/helpers_realdata.R")
 # adjacency matrix cantons
 
 A <- create.A.init()
-  
-# A_large <- kronecker(diag(15),A)
+
 A_large <- kronecker(A,diag(24))
   
 treat <- data$W
@@ -33,14 +32,15 @@ Y <- data$Y
   
 # adj <- c(1,8,9,10,12,13,14,15,20,21,22,23)
   
-adj <-  c("X.casegrowthlag_we",
-            # "X.percentage_age_we","X.Density_we","X.population_we",
-           "X.restGatherings_we","X.cancEvents_we",
-          # "X.testingPolicy_we",
-            "X.workClosing2a_we","X.sre000d0_we","X.tre200d0_we","X.ure200d0_we",
-            "X.ferien_we",
-          "X.Canton_3","X.oneweek")
-  
+adj <-  c("X.casegrowthlag_we"
+          # , "X.percentage_age_we","X.Density_we","X.population_we"
+           ,"X.restGatherings_we","X.cancEvents_we"
+            ,"X.workClosing2a_we","X.sre000d0_we"
+            ,"X.tre200d0_we","X.ure200d0_we","X.ferien_we"
+            ,"X.Canton_3")
+
+factor <- c("X.Canton_3")  
+
 # "X.median_R_mean.lag_we"  "X.casegrowthlag_we",
 
 
@@ -55,7 +55,7 @@ CI_OLS1 <- c(est_OLS1 - qnorm(1- 0.05/2)*sqrt(var_OLS1.est/(24*26)),
       
   ############################# OLS2 ###########################################################
   
-res_OLS2 <- estimator(1,0,treat,Y,C,adj,list(),A_large,factor=c("X.Canton_3","X.oneweek"))
+res_OLS2 <- estimator(1,0,treat,Y,C,adj,list(),A_large,factor=factor)
 est_OLS2 <- res_OLS2$hat_tau
 var_OLS2.est <- res_OLS2$hat_var_tau
 CI_OLS2 <- c(est_OLS2 - qnorm(1- 0.05/2)*sqrt(var_OLS2.est/(24*26)), 
@@ -75,7 +75,7 @@ CI_OLS2 <- c(est_OLS2 - qnorm(1- 0.05/2)*sqrt(var_OLS2.est/(24*26)),
   
   ############################# OLS4  ###########################################################
   
-      res_OLS4 <- estimator(pai=1,eta=0,W=treat,Y=Y,C=C,adj=adj,feat_functions=list(feat_X1),A=A_large,factor=c("X.Canton_3","X.oneweek"))
+      res_OLS4 <- estimator(pai=1,eta=0,W=treat,Y=Y,C=C,adj=adj,feat_functions=list(feat_X1),A=A_large,factor=factor)
       
       est_OLS4 <- res_OLS4$hat_tau
         

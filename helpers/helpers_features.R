@@ -1,6 +1,6 @@
 ### feature functions
 
-# feature X1: fraction of treated neighbours
+# feature X1: fraction of treated neighbors
 feat_X1 <- function(A, treat){
   A_tilde <- as.matrix(normalize_A(A))
   feat <- c(A_tilde%*%treat)
@@ -8,14 +8,14 @@ feat_X1 <- function(A, treat){
   return(feat)
 }
 
-# feature X2: indicator if at least 50% of neighbours are treated
+# feature X2: indicator if at least 50% of neighbors are treated
 feat_X2 <- function(A, treat){
   num_neigs <- rowSums(A)
   feat <- ifelse(A%*%treat >=0.5*num_neigs,1,0) 
   return(feat)
 }
 
-# feature X3: fraction of treated neighbours of neighbours
+# feature X3: fraction of treated neighbors of neighbors
 feat_X3 <- function(A, W,typeofgraph="3dlatt"){
   A_blub <- A%*%A
   #directed 3d-latt

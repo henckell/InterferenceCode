@@ -1,4 +1,4 @@
-#### Data genaration functions: take an adjacency matrix and error parameters and return set of data 
+#### Data generation functions: take an adjacency matrix and error parameters and return set of data 
 ## requires lower triangular B
 
 ## normal errors

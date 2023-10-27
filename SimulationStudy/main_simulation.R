@@ -1,5 +1,5 @@
 # Main: Simulation Study for the Paper
-setwd("~/GitHub/InvarianceCode")
+setwd("~/GitHub/InterferenceCode")
 
 library("igraph")
 library("Matrix")

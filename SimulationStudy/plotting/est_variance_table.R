@@ -3,7 +3,7 @@ library(ggplot2)
 library(ggpubr)
 library(xtable)
 
-setwd("~/GitHub/InvarianceCode")
+setwd("~/GitHub/InterferenceCode")
 
 
 typeofgraphs <-  c("rand_pfix","rand_npfix","rand_npfix_growing","family","2dlatt")

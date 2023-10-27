@@ -7,7 +7,7 @@ library(ggpubr)
 
 nvals <- c(300, 600, 1200,2400, 4800)#,9600)
 
-setwd("~/GitHub/InvarianceCode/")
+setwd("~/GitHub/InterferenceCode")
 
 typeofgraph <-  "2dlatt"
 

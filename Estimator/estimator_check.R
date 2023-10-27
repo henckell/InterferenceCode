@@ -1,6 +1,6 @@
 ## file to verify property of estimator
 
-setwd("~/GitHub/InvarianceCode")
+setwd("~/GitHub/InterferenceCode")
 
 library("igraph")
 library("Matrix")

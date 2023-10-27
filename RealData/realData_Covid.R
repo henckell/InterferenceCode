@@ -1,16 +1,16 @@
 
 library(dplyr)
 library(Matrix)
-library(ggplot2)1
+library(ggplot2)
 library(fastDummies)
 
 # Comments: 
 # data are smoothed weekly
 # have 24 weeks (X.oneweek) for each of the 26 cantons (X.Canton_3)
 
-setwd("~/GitHub/InvarianceCode")
-source("~/GitHub/InvarianceCode/Estimator/estimator.R")
-source("~/GitHub/InvarianceCode/helpers/helpers_realdata.R")
+setwd("~/GitHub/InterferenceCode")
+source("~/GitHub/InterferenceCode/Estimator/estimator.R")
+source("~/GitHub/InterferenceCode/helpers/helpers_realdata.R")
 
 data <- read.csv("RealData/Data/data.casegrowth.csv")
   

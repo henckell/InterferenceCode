@@ -15,7 +15,7 @@
 ## hat_tau: estimate of target global treatment effect
 ## hat_var_tau: estimated variance of estimator for asy. valid CIs
 
-setwd("~/GitHub/InvarianceCode")
+setwd("~/GitHub/InterferenceCode")
 
 source("helpers/helpers_estimator.R")
 

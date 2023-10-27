@@ -2,7 +2,7 @@ library(latex2exp)
 library(ggplot2)
 library(ggpubr)
 
-setwd("~/GitHub/InvarianceCode/SimulationStudy/")
+setwd("~/GitHub/InterferenceCode/SimulationStudy/")
 
 
 

@@ -3,8 +3,6 @@ library(ggplot2)
 library(ggpubr)
 library(xtable)
 
-setwd("~/GitHub/InterferenceCode")
-
 
 typeofgraphs <-  c("rand_pfix","rand_npfix","rand_npfix_growing","family","2dlatt")
 
@@ -23,7 +21,7 @@ for(i in 1:length(nvals)){
   
   nval <- nvals[i]
   
-  filename <- paste0("results_data/model_", typeofgraph,"/estimation_",typeofgraph,"_nval",nval,".Rda")
+  filename <- paste0("SimulationStudy/results_data/model_", typeofgraph,"/estimation_",typeofgraph,"_nval",nval,".Rda")
   
   
   load(filename)

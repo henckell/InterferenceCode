@@ -9,13 +9,12 @@
 ## A: adjacency matrix for the network graph
 ## Y: outcome vector
 ## B: number of repetitions used to approximate the omega weights 
+## factor: vector with names of covaraites that are factors
 ## should be as high as possible but imposes large computational burden
 
 ### Returns
 ## hat_tau: estimate of target global treatment effect
 ## hat_var_tau: estimated variance of estimator for asy. valid CIs
-
-setwd("~/GitHub/InterferenceCode")
 
 source("helpers/helpers_estimator.R")
 

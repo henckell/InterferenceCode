@@ -8,7 +8,6 @@ library(fastDummies)
 # data are smoothed weekly
 # have 24 weeks (X.oneweek) for each of the 26 cantons (X.Canton_3)
 
-setwd("~/GitHub/InterferenceCode")
 source("~/GitHub/InterferenceCode/Estimator/estimator.R")
 source("~/GitHub/InterferenceCode/helpers/helpers_realdata.R")
 

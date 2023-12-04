@@ -7,13 +7,8 @@ library(ggpubr)
 
 nvals <- c(300, 600, 1200,2400, 4800)#,9600)
 
-setwd("~/GitHub/InterferenceCode")
-
 typeofgraph <-  "2dlatt"
-
 # c("rand_pfix","rand_npfix","rand_npfix_growing","family","2dlatt")
-
-
 
 filename.save <- paste0("plot_",typeofgraph)
 
@@ -29,7 +24,7 @@ pval.normal_ols4 <- list()
 for(i in 1:length(nvals)){
   nval <- nvals[i]
   
-  filename <- paste0("results_data/model_", typeofgraph,"/estimation_",typeofgraph,"_nval",nval,".Rda")
+  filename <- paste0("SimulationStudy/results_data/model_", typeofgraph,"/estimation_",typeofgraph,"_nval",nval,".Rda")
   
   load(filename)
   

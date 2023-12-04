@@ -3,7 +3,9 @@
 library(igraph)
 library(parallel)
 library(Matrix)
-source("helpers/helpers_paper.R")
+library(ggplot2)
+library(latex2exp)
+source("helpers/helpers_general.R")
 source("helpers/helpers_graph.R")
 
 nvals <- c(300,600,1200,2400,4800)
@@ -80,29 +82,15 @@ res <- lapply(1:length(results), function(k){
 
 
 max.degs.12 <- sapply(1:length(res), function(k){
-  mean(unlist(res[[k]]$max.deg.12))
+  max(unlist(res[[k]]$max.deg.12))
 })
 
 max.degs.non <- sapply(1:length(res), function(k){
-  mean(unlist(res[[k]]$max.deg.non))
+  max(unlist(res[[k]]$max.deg.non))
 })
-
-
-rm(res)
-
-load("prob02depgraphs.Rda")
-
-
-
-res <- lapply(1:length(results), function(k){
-
-  as.data.frame(do.call(rbind, results[[k]]))
-
-})
-
 
 max.degs.constp <- sapply(1:length(res), function(k){
-  mean(unlist(res[[k]]$max.deg.constp))
+  max(unlist(res[[k]]$max.deg.constp))
 })
 
 

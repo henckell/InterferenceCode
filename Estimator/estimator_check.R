@@ -1,7 +1,5 @@
 ## file to verify property of estimator
 
-setwd("~/GitHub/InterferenceCode")
-
 library("igraph")
 library("Matrix")
 library("parallel")
@@ -14,6 +12,9 @@ source("helpers/helpers_main.R")
 source("helpers/helpers_datageneration.R")
 source("helpers/helpers_estimator.R")
 
+source("Estimator/estimator.R")
+
+set.seed(1)
 
 typeofgraph <- "rand_npfix"
 pai <- 0.7
